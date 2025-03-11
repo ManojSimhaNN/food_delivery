@@ -1,7 +1,9 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/components/my_button.dart';
 import 'package:food_delivery/components/my_textfield.dart';
-import 'package:food_delivery/pages/home_page.dart';
+import 'package:food_delivery/services/auth/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -18,37 +20,25 @@ class _LoginPageState extends State<LoginPage> {
 
   //login method
   void login() async {
-    /*showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-    //try sign in
+    //get instance of auth service
+    final _authService = AuthService();
+
+    //try signing in
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+      await _authService.signInWithEmailPassword(
+        emailController.text,
+        passwordController.text,
       );
 
-      //pop the loading circle
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      //pop the loading circle
-      Navigator.pop(context);
-
-      //error message
-      showErrorMessage(e.code);
-    }*/
-    //navigate to home page
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(),
-      ),
-    );
+      //catch error
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
   }
 
   @override

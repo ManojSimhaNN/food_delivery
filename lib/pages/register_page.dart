@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/components/my_button.dart';
 import 'package:food_delivery/components/my_textfield.dart';
+import 'package:food_delivery/services/auth/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -16,6 +19,45 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmpasswordController =
       TextEditingController();
+
+  //register method
+  void register() async {
+    //get auth service
+    final authService = AuthService();
+
+    //check if passwords match -> create user
+    if (passwordController.text == confirmpasswordController.text) {
+      //try creating user
+      try {
+        await authService.signInWithEmailPassword(
+          emailController.text,
+          passwordController.text,
+        );
+      }
+
+      //display error
+      catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
+    }
+
+    //if passwords do not match -> show error
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("Passwords do not match!"),
+        ),
+      );
+    }
+
+    //if passwords do not match -> show error
+  }
 
   @override
   @override
