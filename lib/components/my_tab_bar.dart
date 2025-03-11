@@ -24,6 +24,8 @@ class MyTabBar extends StatelessWidget {
       child: TabBar(
         tabs: _buildCategoryTabs(),
         controller: tabController,
+        isScrollable: true,
+        tabAlignment: TabAlignment.start,
       ),
     );
   }

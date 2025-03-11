@@ -47,13 +47,13 @@ class _PaymentPageState extends State<PaymentPage> {
                   MyButton(
                     onTap: () {
                       Navigator.pop(context);
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const DeliveryProgressPage(),
                         ),
                       );
-                      Navigator.pop(context);
                     },
                     text: "Yes",
                   ),
@@ -65,14 +65,20 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Checkout'),
+        title: const Text(
+          'Checkout',
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 25,
+          ),
           //credit card
           CreditCardWidget(
             cardNumber: cardNumber,

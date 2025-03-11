@@ -47,25 +47,33 @@ class MyCartTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(cartItem.food.name),
-                            Text(cartItem.food.price.toString()),
+                            //increment and decrement quantity
+                            QuantitySelector(
+                              quantity: cartItem.quantity,
+                              food: cartItem.food,
+                              onIncrement: () {
+                                restaurant.addToCart(
+                                  cartItem.food,
+                                  cartItem.selectedAddons,
+                                );
+                              },
+                              onDecrement: () {
+                                restaurant.removeFromCart(cartItem);
+                              },
+                            ),
+                            //total price
+                            Text(
+                              "Total price: " '\u{20B9}${cartItem.totalprice}',
+                            ),
                           ],
                         ),
 
-                        const Spacer(),
+                        const SizedBox(
+                          width: 10,
+                        ),
 
-                        //increment and decrement quantity
-                        QuantitySelector(
-                          quantity: cartItem.quantity,
-                          food: cartItem.food,
-                          onIncrement: () {
-                            restaurant.addToCart(
-                              cartItem.food,
-                              cartItem.selectedAddons,
-                            );
-                          },
-                          onDecrement: () {
-                            restaurant.removeFromCart(cartItem);
-                          },
+                        Text(
+                          '\u{20B9}${cartItem.food.price}',
                         ),
                       ],
                     ),
@@ -92,12 +100,7 @@ class MyCartTile extends StatelessWidget {
 
                                     //addon price
                                     Text(
-                                      '(\$${addon.price})',
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
+                                      '(\u{20B9}${addon.price})',
                                     ),
                                   ],
                                 ),
