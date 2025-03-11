@@ -42,6 +42,9 @@ class _PaymentPageState extends State<PaymentPage> {
                     onTap: () => Navigator.pop(context),
                     text: "Cancel",
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
 
                   //yes button
                   MyButton(

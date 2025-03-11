@@ -29,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (passwordController.text == confirmpasswordController.text) {
       //try creating user
       try {
-        await authService.signInWithEmailPassword(
+        await authService.signUpWithEmailPassword(
           emailController.text,
           passwordController.text,
         );
@@ -55,8 +55,6 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
     }
-
-    //if passwords do not match -> show error
   }
 
   @override
@@ -124,7 +122,9 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             //signin button
             MyButton(
-              onTap: () {},
+              onTap: () {
+                register();
+              },
               text: "Sign Up",
             ),
 
